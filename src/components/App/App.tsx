@@ -92,7 +92,8 @@ function App() {
     websocketClient.on(GameEvent.SetGradient, setGradientWrapper);
 
     const handleGameEnd = () => {
-      alert("Game ended");
+      setGameState(GameState.NotInGame);
+      setGameCode("");
     };
     websocketClient.on(GameEvent.GameEnd, handleGameEnd);
 
