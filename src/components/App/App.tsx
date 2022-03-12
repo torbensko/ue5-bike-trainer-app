@@ -1,34 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.scss";
 import { GameCode } from "../GameCode/GameCode";
 import { Layout } from "./components/Layout";
+import { gameCodeFromUrl } from "./utilities/gameCodeFromUrl";
 
 function App() {
-  if (window.location.hash === "") {
+  const [gameCode, setGameCode] = useState(gameCodeFromUrl());
+
+  useEffect(() => {
+    window.location.hash = gameCode;
+  }, [gameCode]);
+
+  if (gameCode.length !== 4) {
     // no hash available yet, prompt user to enter game code
     return (
       <Layout>
-        <GameCode />
+        <GameCode gameCode={gameCode} setGameCode={setGameCode} />
       </Layout>
     );
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <div>
+        Code: <code>{gameCode}</code>
+        <br />
+        <button onClick={() => setGameCode("")}>Change code</button>
+      </div>
+    </Layout>
   );
 }
 
