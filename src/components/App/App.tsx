@@ -1,7 +1,18 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.scss";
+import { GameCode } from "../GameCode/GameCode";
+import { Layout } from "./components/Layout";
 
 function App() {
+  if (window.location.hash === "") {
+    // no hash available yet, prompt user to enter game code
+    return (
+      <Layout>
+        <GameCode />
+      </Layout>
+    );
+  }
+
   return (
     <div className="App">
       <header className="App-header">
